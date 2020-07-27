@@ -241,7 +241,8 @@ if __name__ == '__main__':
     parser.add_argument('--augment', action='store_true', help='augmented inference')
     parser.add_argument('--merge', action='store_true', help='use Merge NMS')
     parser.add_argument('--verbose', action='store_true', help='report mAP by class')
-    opt = parser.parse_args()
+    #原来，报错：opt = parser.parse_args()
+    opt = parser.parse_known_args()[0]
     opt.img_size = check_img_size(opt.img_size)
     opt.save_json = opt.save_json or opt.data.endswith('coco.yaml')
     opt.data = check_file(opt.data)  # check file

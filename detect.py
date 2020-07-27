@@ -151,7 +151,8 @@ if __name__ == '__main__':
     parser.add_argument('--classes', nargs='+', type=int, help='filter by class')
     parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
     parser.add_argument('--augment', action='store_true', help='augmented inference')
-    opt = parser.parse_args()
+    #原来，报错：opt = parser.parse_args()
+    opt = parser.parse_known_args()[0]
     opt.img_size = check_img_size(opt.img_size)
     print(opt)
 
