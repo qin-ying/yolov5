@@ -138,17 +138,26 @@ def detect(save_img=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    #训练权重的路径
     parser.add_argument('--weights', type=str, default='weights/yolov5s.pt', help='model.pt path')
+    #推理目标的输入路径，可以是图片，视频，网络摄像头等
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam
+    #推理结果的输出路径
     parser.add_argument('--output', type=str, default='inference/output', help='output folder')  # output folder
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
+    #对象置信阈值，默认0.4
     parser.add_argument('--conf-thres', type=float, default=0.4, help='object confidence threshold')
+    #NMS的IOU阈值，可以根据实际对象的重叠度调节，默认0.5
     parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
     parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    #显示所有推理结果
     parser.add_argument('--view-img', action='store_true', help='display results')
+    #将每一帧的推理结果及边界框的位置，存入*.txt文件
     parser.add_argument('--save-txt', action='store_true', help='save results to *.txt')
+    #类别过滤，意思是只推理目标类别
     parser.add_argument('--classes', nargs='+', type=int, help='filter by class')
+    #使用agnostic-nms NMS
     parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
     parser.add_argument('--augment', action='store_true', help='augmented inference')
     #原来，报错：opt = parser.parse_args()

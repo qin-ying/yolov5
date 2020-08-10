@@ -354,22 +354,32 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--epochs', type=int, default=300)
     parser.add_argument('--batch-size', type=int, default=16)
+    #模型文件
     parser.add_argument('--cfg', type=str, default='models/yolov5s.yaml', help='*.cfg path')
+    #yaml文件  包含训练、验证集的位置，类别数目及名称
     parser.add_argument('--data', type=str, default='data/coco128.yaml', help='*.data path')
     parser.add_argument('--img-size', nargs='+', type=int, default=[640, 640], help='train,test sizes')
+    #输入这个参数，会关闭Mosaic数据增强
     parser.add_argument('--rect', action='store_true', help='rectangular training')
+    #从上次训练的结束last.pt继续训练
     parser.add_argument('--resume', action='store_true', help='resume training from last.pt')
+    #输入这个参数将存储最后的checkpoint，可以加快整体训练速度，但是建议关闭这个参数，这样能保留best.pt
     parser.add_argument('--nosave', action='store_true', help='only save final checkpoint')
+    #只测试最后一个epoch，能加快整体训练速度
     parser.add_argument('--notest', action='store_true', help='only test final epoch')
+    #关闭自适应自适应锚定框，YOLO V5会自动分析当前锚定框的 Best Possible Recall (BPR) ，对于img-size 640，较佳BPR为0.9900，随着img-size降低，BPR也随之变差
     parser.add_argument('--noautoanchor', action='store_true', help='disable autoanchor check')
     parser.add_argument('--evolve', action='store_true', help='evolve hyperparameters')
     parser.add_argument('--bucket', type=str, default='', help='gsutil bucket')
     parser.add_argument('--cache-images', action='store_true', help='cache images for faster training')
     parser.add_argument('--weights', type=str, default='', help='initial weights path')
     parser.add_argument('--name', default='', help='renames results.txt to results_name.txt if supplied')
+    #选择使用CUDA或者CPU
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--adam', action='store_true', help='use adam optimizer')
+    #输入图像多尺度训练，在训练过程中，输入图像会自动resize至 img-size +/- 50%，能一定程度上防止模型过拟合，但是对于GPU显存要求很高，对于640的img-size至少使用16GB显存，才能保证运行不出错
     parser.add_argument('--multi-scale', action='store_true', help='vary img-size +/- 50%')
+    #模型的输出为单一类别
     parser.add_argument('--single-cls', action='store_true', help='train as single-class dataset')
     #原来，报错：opt = parser.parse_args()
     opt = parser.parse_known_args()[0]
